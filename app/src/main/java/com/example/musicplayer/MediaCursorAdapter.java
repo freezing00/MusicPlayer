@@ -3,6 +3,7 @@ package com.example.musicplayer;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,18 @@ public class MediaCursorAdapter extends CursorAdapter {
             viewHolder.artist.setText(artist);
             viewHolder.order.setText(Integer.toString(position+1));
         }
+    }
+
+    public void reset() {
+    }
+
+    public void setDataSorce(MainActivity mainActivity, Uri dataUri) {
+    }
+
+    public void prepare() {
+    }
+
+    public void start() {
     }
 
     public class ViewHolder{
