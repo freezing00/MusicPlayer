@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView thumbnail;
     private ImageView playMusic;
     private MediaPlayer mediaPlayer = null;
+    private boolean playStatus = true;
     private ListView.OnItemClickListener itemClickListener = new ListView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -208,6 +209,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-
+        switch(view.getId()){
+            case R.id.play:
+                playStatus = !playStatus;
+                if(playStatus ==true){
+                    if(mediaPlayer!=null){
+                        mediaPlayer.start();
+                    }
+                    playMusic.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                }
+                else{
+                    if(mediaPlayer!=null){
+                        mediaPlayer.pause();
+                    }
+                    playMusic.setImageResource(R.drawable.ic_baseline_play_circle_outline_24);
+                }
+                break;
+        }
     }
 }
