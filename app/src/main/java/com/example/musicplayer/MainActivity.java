@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra(MainActivity.DATA_URI,data);
                 intent.putExtra(MainActivity.TITLE,title);
                 intent.putExtra(MainActivity.ARTIST,artist);
-                startService(intent);
+                startForegroundService(intent);
 
                 navigationView.setVisibility(View.VISIBLE);
 
@@ -182,8 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MediaStore.Audio.Media.DEFAULT_SORT_ORDER
         );
         if(cursor!=null){
-        mediaCursorAdapter.swapCursor(cursor);
-        mediaCursorAdapter.notifyDataSetChanged();}
+            mediaCursorAdapter.swapCursor(cursor);
+            mediaCursorAdapter.notifyDataSetChanged();}
     }
 
     @Override

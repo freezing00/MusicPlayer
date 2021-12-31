@@ -16,9 +16,9 @@ import androidx.core.app.NotificationCompat;
 
 import java.io.IOException;
 
-public class MusicService extends Service {
+public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
     private static final String CHANNEL_ID = "Music channel";
-    private static final String ONGOING_NOTIFICATION_ID = "1001";
+    private static final int ONGOING_NOTIFICATION_ID = 1001;
     NotificationManager notificationManager;
     MediaPlayer mediaPlayer;
 
@@ -81,7 +81,7 @@ public class MusicService extends Service {
 
         Notification notification;
         notification = builder.setContentTitle(title).setContentText(artist).setSmallIcon(R.drawable.ic_launcher_foreground).setContentIntent(pendingIntent).build();
-        startForeground(Integer.parseInt(ONGOING_NOTIFICATION_ID),notification);
+        startForeground(ONGOING_NOTIFICATION_ID,notification);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -89,6 +89,11 @@ public class MusicService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+
     }
 }
