@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -33,6 +34,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
+    public static final String DATA_URI = "com.example.musicplayer.DATA_URI";
+    public static final String TITLE = "com.example.musicplayer.TITLE";
+    public static final String ARTIST = "com.example.musicplayer.ARTIST";
+
+    private static final String TAG= MainActivity.class.getSimpleName();
     private ContentResolver contentResolver;
     private ListView playList;
     private MediaCursorAdapter mediaCursorAdapter  = null;
@@ -61,16 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Uri dataUri = Uri.parse(data);
 
-                if (mediaCursorAdapter!=null){
-                    try {
-                        mediaCursorAdapter.reset();
-                        mediaCursorAdapter.setDataSorce(MainActivity.this,dataUri);
-                        mediaCursorAdapter.prepare();
-                        mediaCursorAdapter.start();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+                Intent intent = new Intent(MainActivity.this,MusicService.class);
+                intent.putExtra(MainActivity.DATA_URI,data);
+                intent.putExtra(MainActivity.TITLE,title);
+                intent.putExtra(MainActivity.ARTIST,artist);
+                startService(intent);
 
                 navigationView.setVisibility(View.VISIBLE);
 
@@ -205,7 +206,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
     @Override
     public void onClick(View view) {

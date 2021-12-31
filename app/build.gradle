@@ -8,6 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.musicplayer"
+        useLibrary'org.apache.http.legacy'
         minSdkVersion 29
         targetSdkVersion 31
         versionCode 1
